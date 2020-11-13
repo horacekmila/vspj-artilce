@@ -25,17 +25,12 @@ class ReviewCategory
     /**
      * @ORM\Column(type="integer")
      */
-    private $min_points;
+    private $maxPoints;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $max_points;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Review::class, inversedBy="category_id")
-     */
-    private $review;
+    private $minPoints;
 
     public function getId(): ?int
     {
@@ -54,38 +49,26 @@ class ReviewCategory
         return $this;
     }
 
-    public function getMinPoints(): ?int
-    {
-        return $this->min_points;
-    }
-
-    public function setMinPoints(int $min_points): self
-    {
-        $this->min_points = $min_points;
-
-        return $this;
-    }
-
     public function getMaxPoints(): ?int
     {
-        return $this->max_points;
+        return $this->maxPoints;
     }
 
-    public function setMaxPoints(int $max_points): self
+    public function setMaxPoints(int $maxPoints): self
     {
-        $this->max_points = $max_points;
+        $this->maxPoints = $maxPoints;
 
         return $this;
     }
 
-    public function getReview(): ?Review
+    public function getMinPoints(): ?int
     {
-        return $this->review;
+        return $this->minPoints;
     }
 
-    public function setReview(?Review $review): self
+    public function setMinPoints(int $minPoints): self
     {
-        $this->review = $review;
+        $this->minPoints = $minPoints;
 
         return $this;
     }

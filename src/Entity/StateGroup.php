@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StateGroupRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,41 +20,76 @@ class StateGroup
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToMany(targetEntity=State::class, mappedBy="previousStateGroup")
      */
-    private $states;
+    private $previusStates;
 
     /**
-     * @ORM\ManyToOne(targetEntity=State::class, inversedBy="next_state_group")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity=State::class, mappedBy="nextStateGroup")
      */
-    private $state;
+    private $nextStates;
+
+    public function __construct()
+    {
+        $this->previusStates = new ArrayCollection();
+        $this->nextStates = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getStates(): ?string
+    /**
+     * @return Collection|State[]
+     */
+    public function getPreviusStates(): Collection
     {
-        return $this->states;
+        return $this->previusStates;
     }
 
-    public function setStates(string $states): self
+    public function addPreviusState(State $previusState): self
     {
-        $this->states = $states;
+        if (!$this->previusStates->contains($previusState)) {
+            $this->previusStates[] = $previusState;
+            $previusState->addPreviousStateGroup($this);
+        }
 
         return $this;
     }
 
-    public function getState(): ?State
+    public function removePreviusState(State $previusState): self
     {
-        return $this->state;
+        if ($this->previusStates->removeElement($previusState)) {
+            $previusState->removePreviousStateGroup($this);
+        }
+
+        return $this;
     }
 
-    public function setState(?State $state): self
+    /**
+     * @return Collection|State[]
+     */
+    public function getNextStates(): Collection
     {
-        $this->state = $state;
+        return $this->nextStates;
+    }
+
+    public function addNextState(State $nextState): self
+    {
+        if (!$this->nextStates->contains($nextState)) {
+            $this->nextStates[] = $nextState;
+            $nextState->addNextStateGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNextState(State $nextState): self
+    {
+        if ($this->nextStates->removeElement($nextState)) {
+            $nextState->removeNextStateGroup($this);
+        }
 
         return $this;
     }

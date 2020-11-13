@@ -20,7 +20,7 @@ class Issue
     /**
      * @ORM\Column(type="datetime")
      */
-    private $created_at;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -28,14 +28,14 @@ class Issue
     private $title;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $visible_for_author;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $visibleForAuthor;
 
     public function getId(): ?int
     {
@@ -44,12 +44,12 @@ class Issue
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -66,18 +66,6 @@ class Issue
         return $this;
     }
 
-    public function getVisibleForAuthor(): ?bool
-    {
-        return $this->visible_for_author;
-    }
-
-    public function setVisibleForAuthor(bool $visible_for_author): self
-    {
-        $this->visible_for_author = $visible_for_author;
-
-        return $this;
-    }
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -86,6 +74,18 @@ class Issue
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getVisibleForAuthor(): ?bool
+    {
+        return $this->visibleForAuthor;
+    }
+
+    public function setVisibleForAuthor(bool $visibleForAuthor): self
+    {
+        $this->visibleForAuthor = $visibleForAuthor;
 
         return $this;
     }

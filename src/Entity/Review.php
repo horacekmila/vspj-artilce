@@ -20,6 +20,11 @@ class Review
     private $id;
 
     /**
+     * @ORM\ManyToMany(targetEntity=ReviewCategory::class)
+     */
+    private $category;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $description;
@@ -27,26 +32,46 @@ class Review
     /**
      * @ORM\Column(type="datetime")
      */
-    private $created_at;
+    private $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=ReviewCategory::class, mappedBy="review")
-     */
-    private $category_id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="review_id")
+     * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="review")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $article;
 
     public function __construct()
     {
-        $this->category_id = new ArrayCollection();
+        $this->category = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return Collection|ReviewCategory[]
+     */
+    public function getCategory(): Collection
+    {
+        return $this->category;
+    }
+
+    public function addCategory(ReviewCategory $category): self
+    {
+        if (!$this->category->contains($category)) {
+            $this->category[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(ReviewCategory $category): self
+    {
+        $this->category->removeElement($category);
+
+        return $this;
     }
 
     public function getDescription(): ?string
@@ -63,42 +88,12 @@ class Review
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|ReviewCategory[]
-     */
-    public function getCategoryId(): Collection
-    {
-        return $this->category_id;
-    }
-
-    public function addCategoryId(ReviewCategory $categoryId): self
-    {
-        if (!$this->category_id->contains($categoryId)) {
-            $this->category_id[] = $categoryId;
-            $categoryId->setReview($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategoryId(ReviewCategory $categoryId): self
-    {
-        if ($this->category_id->removeElement($categoryId)) {
-            // set the owning side to null (unless already changed)
-            if ($categoryId->getReview() === $this) {
-                $categoryId->setReview(null);
-            }
-        }
+        $this->createdAt = $createdAt;
 
         return $this;
     }

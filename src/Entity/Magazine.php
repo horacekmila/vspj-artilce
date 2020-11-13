@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MagazineRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,7 +32,17 @@ class Magazine
     /**
      * @ORM\Column(type="integer")
      */
-    private $prining_capacity;
+    private $printingCapacity;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Article::class, mappedBy="magazine")
+     */
+    private $articles;
+
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -61,14 +73,41 @@ class Magazine
         return $this;
     }
 
-    public function getPriningCapacity(): ?int
+    public function getPrintingCapacity(): ?int
     {
-        return $this->prining_capacity;
+        return $this->printingCapacity;
     }
 
-    public function setPriningCapacity(int $prining_capacity): self
+    public function setPrintingCapacity(int $printingCapacity): self
     {
-        $this->prining_capacity = $prining_capacity;
+        $this->printingCapacity = $printingCapacity;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Article[]
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Article $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->addMagazine($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): self
+    {
+        if ($this->articles->removeElement($article)) {
+            $article->removeMagazine($this);
+        }
 
         return $this;
     }

@@ -27,22 +27,22 @@ class Article
     /**
      * @ORM\Column(type="text")
      */
-    private $content;
+    private $Content;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $docx_filename;
+    private $docxFilename;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $pdf_filename;
+    private $pdfFilename;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $is_active;
+    private $isActive;
 
     /**
      * @ORM\Column(type="integer")
@@ -55,13 +55,38 @@ class Article
     private $editable;
 
     /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="assignedArticles")
+     */
+    private $assigne;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="creater")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $createdBy;
+
+    /**
      * @ORM\OneToMany(targetEntity=Review::class, mappedBy="article")
      */
-    private $review_id;
+    private $review;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Magazine::class, inversedBy="articles")
+     */
+    private $magazine;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=State::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $state;
+
 
     public function __construct()
     {
-        $this->review_id = new ArrayCollection();
+        $this->review = new ArrayCollection();
+        $this->magazine = new ArrayCollection();
+        $this->state = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -83,48 +108,48 @@ class Article
 
     public function getContent(): ?string
     {
-        return $this->content;
+        return $this->Content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(string $Content): self
     {
-        $this->content = $content;
+        $this->Content = $Content;
 
         return $this;
     }
 
     public function getDocxFilename(): ?string
     {
-        return $this->docx_filename;
+        return $this->docxFilename;
     }
 
-    public function setDocxFilename(?string $docx_filename): self
+    public function setDocxFilename(?string $docxFilename): self
     {
-        $this->docx_filename = $docx_filename;
+        $this->docxFilename = $docxFilename;
 
         return $this;
     }
 
     public function getPdfFilename(): ?string
     {
-        return $this->pdf_filename;
+        return $this->pdfFilename;
     }
 
-    public function setPdfFilename(?string $pdf_filename): self
+    public function setPdfFilename(?string $pdfFilename): self
     {
-        $this->pdf_filename = $pdf_filename;
+        $this->pdfFilename = $pdfFilename;
 
         return $this;
     }
 
     public function getIsActive(): ?bool
     {
-        return $this->is_active;
+        return $this->isActive;
     }
 
-    public function setIsActive(bool $is_active): self
+    public function setIsActive(bool $isActive): self
     {
-        $this->is_active = $is_active;
+        $this->isActive = $isActive;
 
         return $this;
     }
@@ -153,32 +178,117 @@ class Article
         return $this;
     }
 
+    public function getAssigne(): ?User
+    {
+        return $this->assigne;
+    }
+
+    public function setAssigne(?User $assigne): self
+    {
+        $this->assigne = $assigne;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Review[]
      */
-    public function getReviewId(): Collection
+    public function getReview(): Collection
     {
-        return $this->review_id;
+        return $this->review;
     }
 
-    public function addReviewId(Review $reviewId): self
+    public function addReview(Review $review): self
     {
-        if (!$this->review_id->contains($reviewId)) {
-            $this->review_id[] = $reviewId;
-            $reviewId->setArticle($this);
+        if (!$this->review->contains($review)) {
+            $this->review[] = $review;
+            $review->setArticle($this);
         }
 
         return $this;
     }
 
-    public function removeReviewId(Review $reviewId): self
+    public function removeReview(Review $review): self
     {
-        if ($this->review_id->removeElement($reviewId)) {
+        if ($this->review->removeElement($review)) {
             // set the owning side to null (unless already changed)
-            if ($reviewId->getArticle() === $this) {
-                $reviewId->setArticle(null);
+            if ($review->getArticle() === $this) {
+                $review->setArticle(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Magazine[]
+     */
+    public function getMagazine(): Collection
+    {
+        return $this->magazine;
+    }
+
+    public function addMagazine(Magazine $magazine): self
+    {
+        if (!$this->magazine->contains($magazine)) {
+            $this->magazine[] = $magazine;
+        }
+
+        return $this;
+    }
+
+    public function removeMagazine(Magazine $magazine): self
+    {
+        $this->magazine->removeElement($magazine);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|State[]
+     */
+    public function getState(): Collection
+    {
+        return $this->state;
+    }
+
+    public function addState(State $state): self
+    {
+        if (!$this->state->contains($state)) {
+            $this->state[] = $state;
+            $state->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeState(State $state): self
+    {
+        if ($this->state->removeElement($state)) {
+            // set the owning side to null (unless already changed)
+            if ($state->getArticle() === $this) {
+                $state->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function setState(?State $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }

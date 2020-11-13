@@ -20,38 +20,79 @@ class User
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=255)
      */
-    private $Firstname;
+    private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $Middlename;
+    private $middlename;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=255)
      */
-    private $Lastname;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $Created_at;
+    private $lastname;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $Updated_at;
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $password;
 
     /**
      * @ORM\OneToMany(targetEntity=ContentPage::class, mappedBy="author")
      */
     private $contentPages;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Role::class)
+     */
+    private $roles;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="assigne")
+     */
+    private $assignedArticles;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="createdBy")
+     */
+    private $creater;
+
+    /**
+     * @ORM\OneToMany(targetEntity=IssueComment::class, mappedBy="author")
+     */
+    private $issueComments;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Question::class, mappedBy="author")
+     */
+    private $questions;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="author")
+     */
+    private $answers;
+
     public function __construct()
     {
         $this->contentPages = new ArrayCollection();
+        $this->roles = new ArrayCollection();
+        $this->assignedArticles = new ArrayCollection();
+        $this->creater = new ArrayCollection();
+        $this->issueComments = new ArrayCollection();
+        $this->questions = new ArrayCollection();
+        $this->answers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -61,60 +102,72 @@ class User
 
     public function getFirstname(): ?string
     {
-        return $this->Firstname;
+        return $this->firstname;
     }
 
-    public function setFirstname(string $Firstname): self
+    public function setFirstname(string $firstname): self
     {
-        $this->Firstname = $Firstname;
+        $this->firstname = $firstname;
 
         return $this;
     }
 
     public function getMiddlename(): ?string
     {
-        return $this->Middlename;
+        return $this->middlename;
     }
 
-    public function setMiddlename(?string $Middlename): self
+    public function setMiddlename(?string $middlename): self
     {
-        $this->Middlename = $Middlename;
+        $this->middlename = $middlename;
 
         return $this;
     }
 
     public function getLastname(): ?string
     {
-        return $this->Lastname;
+        return $this->lastname;
     }
 
-    public function setLastname(string $Lastname): self
+    public function setLastname(string $lastname): self
     {
-        $this->Lastname = $Lastname;
+        $this->lastname = $lastname;
 
         return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->Created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $Created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->Created_at = $Created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->Updated_at;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $Updated_at): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->Updated_at = $Updated_at;
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
 
         return $this;
     }
@@ -143,6 +196,180 @@ class User
             // set the owning side to null (unless already changed)
             if ($contentPage->getAuthor() === $this) {
                 $contentPage->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Role[]
+     */
+    public function getRoles(): Collection
+    {
+        return $this->roles;
+    }
+
+    public function addRole(Role $role): self
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles[] = $role;
+        }
+
+        return $this;
+    }
+
+    public function removeRole(Role $role): self
+    {
+        $this->roles->removeElement($role);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Article[]
+     */
+    public function getAssignedArticles(): Collection
+    {
+        return $this->assignedArticles;
+    }
+
+    public function addAssignedArticle(Article $assignedArticle): self
+    {
+        if (!$this->assignedArticles->contains($assignedArticle)) {
+            $this->assignedArticles[] = $assignedArticle;
+            $assignedArticle->setAssigne($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssignedArticle(Article $assignedArticle): self
+    {
+        if ($this->assignedArticles->removeElement($assignedArticle)) {
+            // set the owning side to null (unless already changed)
+            if ($assignedArticle->getAssigne() === $this) {
+                $assignedArticle->setAssigne(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Article[]
+     */
+    public function getCreater(): Collection
+    {
+        return $this->creater;
+    }
+
+    public function addCreater(Article $creater): self
+    {
+        if (!$this->creater->contains($creater)) {
+            $this->creater[] = $creater;
+            $creater->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreater(Article $creater): self
+    {
+        if ($this->creater->removeElement($creater)) {
+            // set the owning side to null (unless already changed)
+            if ($creater->getCreatedBy() === $this) {
+                $creater->setCreatedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|IssueComment[]
+     */
+    public function getIssueComments(): Collection
+    {
+        return $this->issueComments;
+    }
+
+    public function addIssueComment(IssueComment $issueComment): self
+    {
+        if (!$this->issueComments->contains($issueComment)) {
+            $this->issueComments[] = $issueComment;
+            $issueComment->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIssueComment(IssueComment $issueComment): self
+    {
+        if ($this->issueComments->removeElement($issueComment)) {
+            // set the owning side to null (unless already changed)
+            if ($issueComment->getAuthor() === $this) {
+                $issueComment->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Question[]
+     */
+    public function getQuestions(): Collection
+    {
+        return $this->questions;
+    }
+
+    public function addQuestion(Question $question): self
+    {
+        if (!$this->questions->contains($question)) {
+            $this->questions[] = $question;
+            $question->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestion(Question $question): self
+    {
+        if ($this->questions->removeElement($question)) {
+            // set the owning side to null (unless already changed)
+            if ($question->getAuthor() === $this) {
+                $question->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Answer[]
+     */
+    public function getAnswers(): Collection
+    {
+        return $this->answers;
+    }
+
+    public function addAnswer(Answer $answer): self
+    {
+        if (!$this->answers->contains($answer)) {
+            $this->answers[] = $answer;
+            $answer->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnswer(Answer $answer): self
+    {
+        if ($this->answers->removeElement($answer)) {
+            // set the owning side to null (unless already changed)
+            if ($answer->getAuthor() === $this) {
+                $answer->setAuthor(null);
             }
         }
 

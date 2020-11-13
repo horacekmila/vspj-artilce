@@ -25,18 +25,22 @@ class State
     private $name;
 
     /**
-     * @ORM\OneToOne(targetEntity=StateGroup::class, cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity=StateGroup::class, inversedBy="previusStates")
+     * @ORM\JoinTable("state_group", name="previous_states")
      */
-    private $previous_state;
+    private $previousStateGroup;
 
     /**
-     * @ORM\OneToMany(targetEntity=StateGroup::class, mappedBy="state")
+     * @ORM\ManyToMany(targetEntity=StateGroup::class, inversedBy="nextStates")
+     * @ORM\JoinTable("state_group", name="next_states")
      */
-    private $next_state_group;
+    private $nextStateGroup;
+
 
     public function __construct()
     {
-        $this->next_state_group = new ArrayCollection();
+        $this->previousStateGroup = new ArrayCollection();
+        $this->nextStateGroup = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -56,14 +60,26 @@ class State
         return $this;
     }
 
-    public function getPreviousState(): ?StateGroup
+    /**
+     * @return Collection|StateGroup[]
+     */
+    public function getPreviousStateGroup(): Collection
     {
-        return $this->previous_state;
+        return $this->previousStateGroup;
     }
 
-    public function setPreviousState(?StateGroup $previous_state): self
+    public function addPreviousStateGroup(StateGroup $previousStateGroup): self
     {
-        $this->previous_state = $previous_state;
+        if (!$this->previousStateGroup->contains($previousStateGroup)) {
+            $this->previousStateGroup[] = $previousStateGroup;
+        }
+
+        return $this;
+    }
+
+    public function removePreviousStateGroup(StateGroup $previousStateGroup): self
+    {
+        $this->previousStateGroup->removeElement($previousStateGroup);
 
         return $this;
     }
@@ -73,14 +89,13 @@ class State
      */
     public function getNextStateGroup(): Collection
     {
-        return $this->next_state_group;
+        return $this->nextStateGroup;
     }
 
     public function addNextStateGroup(StateGroup $nextStateGroup): self
     {
-        if (!$this->next_state_group->contains($nextStateGroup)) {
-            $this->next_state_group[] = $nextStateGroup;
-            $nextStateGroup->setState($this);
+        if (!$this->nextStateGroup->contains($nextStateGroup)) {
+            $this->nextStateGroup[] = $nextStateGroup;
         }
 
         return $this;
@@ -88,12 +103,31 @@ class State
 
     public function removeNextStateGroup(StateGroup $nextStateGroup): self
     {
-        if ($this->next_state_group->removeElement($nextStateGroup)) {
-            // set the owning side to null (unless already changed)
-            if ($nextStateGroup->getState() === $this) {
-                $nextStateGroup->setState(null);
-            }
-        }
+        $this->nextStateGroup->removeElement($nextStateGroup);
+
+        return $this;
+    }
+
+    public function getQuestion(): ?Question
+    {
+        return $this->question;
+    }
+
+    public function setQuestion(?Question $question): self
+    {
+        $this->question = $question;
+
+        return $this;
+    }
+
+    public function getArticle(): ?Article
+    {
+        return $this->article;
+    }
+
+    public function setArticle(?Article $article): self
+    {
+        $this->article = $article;
 
         return $this;
     }

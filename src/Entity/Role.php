@@ -18,14 +18,14 @@ class Role
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=255)
      */
-    private $Name;
+    private $name;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=255)
      */
-    private $Alias;
+    private $alias;
 
     public function getId(): ?int
     {
@@ -34,24 +34,24 @@ class Role
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
-    public function setName(string $Name): self
+    public function setName(string $name): self
     {
-        $this->Name = $Name;
+        $this->name = $name;
 
         return $this;
     }
 
     public function getAlias(): ?string
     {
-        return $this->Alias;
+        return $this->alias;
     }
 
-    public function setAlias(string $Alias): self
+    public function setAlias(string $alias): self
     {
-        $this->Alias = $Alias;
+        $this->alias = $alias;
 
         return $this;
     }

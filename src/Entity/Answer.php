@@ -23,7 +23,7 @@ class Answer
     private $description;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="answers")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
@@ -31,7 +31,7 @@ class Answer
     /**
      * @ORM\ManyToOne(targetEntity=Question::class, inversedBy="answers")
      */
-    private $question_id;
+    private $question;
 
     public function getId(): ?int
     {
@@ -55,21 +55,21 @@ class Answer
         return $this->author;
     }
 
-    public function setAuthor(User $author): self
+    public function setAuthor(?User $author): self
     {
         $this->author = $author;
 
         return $this;
     }
 
-    public function getQuestionId(): ?Question
+    public function getQuestion(): ?Question
     {
-        return $this->question_id;
+        return $this->question;
     }
 
-    public function setQuestionId(?Question $question_id): self
+    public function setQuestion(?Question $question): self
     {
-        $this->question_id = $question_id;
+        $this->question = $question;
 
         return $this;
     }

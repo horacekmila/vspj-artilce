@@ -22,7 +22,7 @@ class Question
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $author_email;
+    private $authorMail;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -32,36 +32,38 @@ class Question
     /**
      * @ORM\Column(type="text")
      */
-    private $descrition;
+    private $description;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $created_at;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $updated_at;
+    private $updatedAt;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="questions")
      */
     private $author;
 
+
     /**
-     * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="question_id")
+     * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="question")
      */
     private $answers;
 
     /**
-     * @ORM\OneToOne(targetEntity=State::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=State::class)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $state_id;
+    private $state;
 
     public function __construct()
     {
+        $this->state = new ArrayCollection();
         $this->answers = new ArrayCollection();
     }
 
@@ -70,14 +72,14 @@ class Question
         return $this->id;
     }
 
-    public function getAuthorEmail(): ?string
+    public function getAuthorMail(): ?string
     {
-        return $this->author_email;
+        return $this->authorMail;
     }
 
-    public function setAuthorEmail(string $author_email): self
+    public function setAuthorMail(string $authorMail): self
     {
-        $this->author_email = $author_email;
+        $this->authorMail = $authorMail;
 
         return $this;
     }
@@ -94,38 +96,38 @@ class Question
         return $this;
     }
 
-    public function getDescrition(): ?string
+    public function getDescription(): ?string
     {
-        return $this->descrition;
+        return $this->description;
     }
 
-    public function setDescrition(string $descrition): self
+    public function setDescription(string $description): self
     {
-        $this->descrition = $descrition;
+        $this->description = $description;
 
         return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
@@ -135,9 +137,39 @@ class Question
         return $this->author;
     }
 
-    public function setAuthor(User $author): self
+    public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|State[]
+     */
+    public function getState(): Collection
+    {
+        return $this->state;
+    }
+
+    public function addState(State $state): self
+    {
+        if (!$this->state->contains($state)) {
+            $this->state[] = $state;
+            $state->setQuestion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeState(State $state): self
+    {
+        if ($this->state->removeElement($state)) {
+            // set the owning side to null (unless already changed)
+            if ($state->getQuestion() === $this) {
+                $state->setQuestion(null);
+            }
+        }
 
         return $this;
     }
@@ -154,7 +186,7 @@ class Question
     {
         if (!$this->answers->contains($answer)) {
             $this->answers[] = $answer;
-            $answer->setQuestionId($this);
+            $answer->setQuestion($this);
         }
 
         return $this;
@@ -164,22 +196,17 @@ class Question
     {
         if ($this->answers->removeElement($answer)) {
             // set the owning side to null (unless already changed)
-            if ($answer->getQuestionId() === $this) {
-                $answer->setQuestionId(null);
+            if ($answer->getQuestion() === $this) {
+                $answer->setQuestion(null);
             }
         }
 
         return $this;
     }
 
-    public function getStateId(): ?State
+    public function setState(?State $state): self
     {
-        return $this->state_id;
-    }
-
-    public function setStateId(?State $state_id): self
-    {
-        $this->state_id = $state_id;
+        $this->state = $state;
 
         return $this;
     }

@@ -26,7 +26,55 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="043a050f-e773-427c-a129-a94aa5b5ed83" name="Default Changelist" comment="" />
+    <list default="true" id="043a050f-e773-427c-a129-a94aa5b5ed83" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201112222312.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201112224225.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201112225028.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201112230938.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201112231908.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201112234034.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201112234747.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Answer.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Article.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/ArticleMagazine.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/ContentPage.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Issue.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/IssueArticle.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/IssueCommentIssue.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/IssueComments.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Magazine.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Question.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Review.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/ReviewCategory.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Role.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/State.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/StateGroup.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/StateStateGroup.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/UserArticle.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/UserRole.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/AnswerRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ArticleMagazineRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ArticleRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ContentPageRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/IssueArticleRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/IssueCommentIssueRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/IssueCommentsRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/IssueRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/MagazineRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/QuestionRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ReviewCategoryRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ReviewRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/RoleRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/StateGroupRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/StateRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/StateStateGroupRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/UserArticleRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/UserRoleRepository.php" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -169,7 +217,9 @@
       <option name="presentableId" value="Default" />
       <updated>1605214448914</updated>
       <workItem from="1605214450126" duration="1425000" />
-      <workItem from="1605215916126" duration="6569000" />
+      <workItem from="1605215916126" duration="7018000" />
+      <workItem from="1605262426961" duration="1446000" />
+      <workItem from="1605275689885" duration="8520000" />
     </task>
     <servers />
   </component>
@@ -205,5 +255,9 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1605215363413" />
+    <state x="660" y="252" key="run.anything.popup" timestamp="1605283382455">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="660" y="252" key="run.anything.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1605283382455" />
   </component>
 </project>

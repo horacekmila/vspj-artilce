@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\IssueCommentsRepository;
+use App\Repository\IssueCommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=IssueCommentsRepository::class)
+ * @ORM\Entity(repositoryClass=IssueCommentRepository::class)
  */
-class IssueComments
+class IssueComment
 {
     /**
      * @ORM\Id
@@ -18,15 +18,15 @@ class IssueComments
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="issueComments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="datetime")
      */
-    private $content;
+    private $createdAt;
 
     public function getId(): ?int
     {
@@ -38,21 +38,21 @@ class IssueComments
         return $this->author;
     }
 
-    public function setAuthor(User $author): self
+    public function setAuthor(?User $author): self
     {
         $this->author = $author;
 
         return $this;
     }
 
-    public function getContent(): ?string
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->content;
+        return $this->createdAt;
     }
 
-    public function setContent(string $content): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->content = $content;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

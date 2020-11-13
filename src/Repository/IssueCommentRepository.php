@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\IssueCommentIssue;
+use App\Entity\IssueComment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method IssueCommentIssue|null find($id, $lockMode = null, $lockVersion = null)
- * @method IssueCommentIssue|null findOneBy(array $criteria, array $orderBy = null)
- * @method IssueCommentIssue[]    findAll()
- * @method IssueCommentIssue[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method IssueComment|null find($id, $lockMode = null, $lockVersion = null)
+ * @method IssueComment|null findOneBy(array $criteria, array $orderBy = null)
+ * @method IssueComment[]    findAll()
+ * @method IssueComment[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class IssueCommentIssueRepository extends ServiceEntityRepository
+class IssueCommentRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, IssueCommentIssue::class);
+        parent::__construct($registry, IssueComment::class);
     }
 
     // /**
-    //  * @return IssueCommentIssue[] Returns an array of IssueCommentIssue objects
+    //  * @return IssueComment[] Returns an array of IssueComment objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class IssueCommentIssueRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?IssueCommentIssue
+    public function findOneBySomeField($value): ?IssueComment
     {
         return $this->createQueryBuilder('i')
             ->andWhere('i.exampleField = :val')
