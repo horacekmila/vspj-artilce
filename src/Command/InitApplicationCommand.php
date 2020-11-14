@@ -5,13 +5,14 @@ namespace App\Command;
 
 
 use App\Entity\Role;
+use App\Entity\State;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class InitApplication extends Command
+class InitApplicationCommand extends Command
 {
     protected static $defaultName = 'app:init-app';
 
@@ -61,5 +62,11 @@ class InitApplication extends Command
         $this->entityManager->persist($role);
         $this->entityManager->flush();
         return $role;
+    }
+
+    private function createStates(): void
+    {
+        $state = (new State())
+            ->setName('WIP');
     }
 }

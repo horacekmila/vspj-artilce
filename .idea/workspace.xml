@@ -27,13 +27,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="043a050f-e773-427c-a129-a94aa5b5ed83" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Command/InitApplication.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Command/DummyDataCommand.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/ArticleController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/ArticleService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/article/article.list.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Security/LoginFormAuthenticator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/LoginFormAuthenticator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/InitApplication.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/InitApplicationCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/State.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/State.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ArticleRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ArticleRepository.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +191,7 @@
       <workItem from="1605215916126" duration="7018000" />
       <workItem from="1605262426961" duration="1446000" />
       <workItem from="1605275689885" duration="15085000" />
-      <workItem from="1605364071646" duration="697000" />
+      <workItem from="1605364071646" duration="2007000" />
     </task>
     <servers />
   </component>
@@ -226,19 +227,24 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="785" y="234" width="412" height="645" key="#com.intellij.ide.util.MemberChooser/72.27.1848.1053@72.27.1848.1053" timestamp="1605361643633" />
-    <state x="811" y="344" width="351" height="433" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1605358487780">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state x="811" y="344" width="351" height="433" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1605358487780" />
-    <state x="2583" y="293" width="585" height="583" key="NewPhpClassDialog" timestamp="1605364200371">
+    <state x="2688" y="340" width="476" height="781" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1605365969181">
       <screen x="1920" y="41" width="1920" height="1080" />
     </state>
-    <state x="2583" y="293" width="585" height="583" key="NewPhpClassDialog/1920.41.1920.1080/3840.0.1680.1050/0.68.1920.1053@1920.41.1920.1080" timestamp="1605364200371" />
+    <state x="2688" y="340" width="476" height="781" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/1920.41.1920.1080/3840.0.1680.1050/0.68.1920.1053@1920.41.1920.1080" timestamp="1605365969181" />
+    <state x="811" y="344" width="351" height="433" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1605358487780" />
+    <state x="2583" y="293" width="609" height="597" key="NewPhpClassDialog" timestamp="1605365959471">
+      <screen x="1920" y="41" width="1920" height="1080" />
+    </state>
+    <state x="2583" y="293" width="609" height="597" key="NewPhpClassDialog/1920.41.1920.1080/3840.0.1680.1050/0.68.1920.1053@1920.41.1920.1080" timestamp="1605365959471" />
     <state x="710" y="273" width="561" height="568" key="NewPhpClassDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1605361003531" />
     <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1605215363413">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1605215363413" />
+    <state x="2648" y="514" width="464" height="167" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605364807495">
+      <screen x="1920" y="41" width="1920" height="1080" />
+    </state>
+    <state x="2648" y="514" width="464" height="167" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.41.1920.1080/3840.0.1680.1050/0.68.1920.1053@1920.41.1920.1080" timestamp="1605364807495" />
     <state x="660" y="252" key="run.anything.popup" timestamp="1605283382455">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>

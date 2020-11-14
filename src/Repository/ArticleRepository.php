@@ -19,6 +19,19 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+    /**
+     * @param array $articles
+     * @return Article[]
+     */
+    public function findExclArticles(array $articles): array
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->andWhere('a IN (:articles)')
+            ->setParameter('articles', $articles);
+
+        return $qb->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */
