@@ -6,11 +6,12 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -203,11 +204,13 @@ class User
     }
 
     /**
-     * @return Collection|Role[]
+     * @return array
      */
-    public function getRoles(): Collection
+    public function getRoles(): array
     {
-        return $this->roles;
+        return $this->roles->map(function (Role $role){
+            return $role->getName();
+        })->toArray();
     }
 
     public function addRole(Role $role): self
@@ -374,5 +377,20 @@ class User
         }
 
         return $this;
+    }
+
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    public function getUsername()
+    {
+        return $this->getFirstname() . " " .$this->getLastname();
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
     }
 }

@@ -27,53 +27,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="043a050f-e773-427c-a129-a94aa5b5ed83" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/DashboardController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/dashboard.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20201112222312.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20201112224225.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20201112225028.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20201112230938.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20201112231908.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20201112234034.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20201112234747.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Answer.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Article.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/ArticleMagazine.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/ContentPage.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Issue.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/IssueArticle.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/IssueCommentIssue.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/IssueComments.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Magazine.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Question.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Review.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/ReviewCategory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Role.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/State.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/StateGroup.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/StateStateGroup.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/UserArticle.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/UserRole.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/AnswerRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ArticleMagazineRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ArticleRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ContentPageRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/IssueArticleRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/IssueCommentIssueRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/IssueCommentsRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/IssueRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/MagazineRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/QuestionRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ReviewCategoryRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ReviewRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/RoleRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/StateGroupRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/StateRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/StateStateGroupRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UserArticleRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UserRoleRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,6 +151,9 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1kCpV2F4P3Oz7KuXFEfT8oJCGmg" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -206,6 +169,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -219,7 +183,7 @@
       <workItem from="1605214450126" duration="1425000" />
       <workItem from="1605215916126" duration="7018000" />
       <workItem from="1605262426961" duration="1446000" />
-      <workItem from="1605275689885" duration="8520000" />
+      <workItem from="1605275689885" duration="15085000" />
     </task>
     <servers />
   </component>
@@ -251,6 +215,18 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="785" y="234" width="412" height="645" key="#com.intellij.ide.util.MemberChooser" timestamp="1605361643633">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="785" y="234" width="412" height="645" key="#com.intellij.ide.util.MemberChooser/72.27.1848.1053@72.27.1848.1053" timestamp="1605361643633" />
+    <state x="811" y="344" width="351" height="433" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1605358487780">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="811" y="344" width="351" height="433" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1605358487780" />
+    <state x="710" y="273" width="561" height="568" key="NewPhpClassDialog" timestamp="1605361003531">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="710" y="273" width="561" height="568" key="NewPhpClassDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1605361003531" />
     <state x="591" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1605215363413">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
