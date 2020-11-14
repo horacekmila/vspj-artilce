@@ -26,7 +26,7 @@ class ArticleRepository extends ServiceEntityRepository
     public function findExclArticles(array $articles): array
     {
         $qb = $this->createQueryBuilder('a');
-        $qb->andWhere('a IN (:articles)')
+        $qb->andWhere('a NOT IN (:articles)')
             ->setParameter('articles', $articles);
 
         return $qb->getQuery()->getResult();

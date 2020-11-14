@@ -25,23 +25,16 @@ class State
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=StateGroup::class, inversedBy="previusStates")
+     * @ORM\ManyToOne(targetEntity=StateGroup::class, inversedBy="previusStates")
      * @ORM\JoinTable("state_group", name="previous_states")
      */
     private $previousStateGroup;
 
     /**
-     * @ORM\ManyToMany(targetEntity=StateGroup::class, inversedBy="nextStates")
+     * @ORM\ManyToOne(targetEntity=StateGroup::class, inversedBy="nextStates")
      * @ORM\JoinTable("state_group", name="next_states")
      */
     private $nextStateGroup;
-
-
-    public function __construct()
-    {
-        $this->previousStateGroup = new ArrayCollection();
-        $this->nextStateGroup = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -60,51 +53,33 @@ class State
         return $this;
     }
 
+    public function setPreviousStateGroup(?StateGroup $previousStateGroup): self
+    {
+        $this->previousStateGroup = $previousStateGroup;
+
+        return $this;
+    }
+
+    public function setNextStateGroup(?StateGroup $nextStateGroup): self
+    {
+        $this->nextStateGroup = $nextStateGroup;
+
+        return $this;
+    }
+
     /**
-     * @return Collection|StateGroup[]
+     * @return StateGroup
      */
-    public function getPreviousStateGroup(): Collection
+    public function getPreviousStateGroup(): StateGroup
     {
         return $this->previousStateGroup;
     }
 
-    public function addPreviousStateGroup(StateGroup $previousStateGroup): self
-    {
-        if (!$this->previousStateGroup->contains($previousStateGroup)) {
-            $this->previousStateGroup[] = $previousStateGroup;
-        }
-
-        return $this;
-    }
-
-    public function removePreviousStateGroup(StateGroup $previousStateGroup): self
-    {
-        $this->previousStateGroup->removeElement($previousStateGroup);
-
-        return $this;
-    }
-
     /**
-     * @return Collection|StateGroup[]
+     * @return StateGroup
      */
-    public function getNextStateGroup(): Collection
+    public function getNextStateGroup(): StateGroup
     {
         return $this->nextStateGroup;
-    }
-
-    public function addNextStateGroup(StateGroup $nextStateGroup): self
-    {
-        if (!$this->nextStateGroup->contains($nextStateGroup)) {
-            $this->nextStateGroup[] = $nextStateGroup;
-        }
-
-        return $this;
-    }
-
-    public function removeNextStateGroup(StateGroup $nextStateGroup): self
-    {
-        $this->nextStateGroup->removeElement($nextStateGroup);
-
-        return $this;
     }
 }

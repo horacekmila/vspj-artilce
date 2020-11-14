@@ -52,16 +52,7 @@ class StateGroup
     {
         if (!$this->previusStates->contains($previusState)) {
             $this->previusStates[] = $previusState;
-            $previusState->addPreviousStateGroup($this);
-        }
-
-        return $this;
-    }
-
-    public function removePreviusState(State $previusState): self
-    {
-        if ($this->previusStates->removeElement($previusState)) {
-            $previusState->removePreviousStateGroup($this);
+            $previusState->setPreviousStateGroup($this);
         }
 
         return $this;
@@ -79,16 +70,7 @@ class StateGroup
     {
         if (!$this->nextStates->contains($nextState)) {
             $this->nextStates[] = $nextState;
-            $nextState->addNextStateGroup($this);
-        }
-
-        return $this;
-    }
-
-    public function removeNextState(State $nextState): self
-    {
-        if ($this->nextStates->removeElement($nextState)) {
-            $nextState->removeNextStateGroup($this);
+            $nextState->setNextStateGroup($this);
         }
 
         return $this;
