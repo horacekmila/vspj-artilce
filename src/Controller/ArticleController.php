@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use App\Service\ArticleService;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,10 +21,13 @@ class ArticleController extends AbstractController
 
     private $articleService;
 
+    private $article;
+
     public function __construct(ArticleRepository $articleRepository, ArticleService $articleService)
     {
         $this->articleRepository = $articleRepository;
         $this->articleService = $articleService;
+        $this->article = $articleRepository;
     }
 
     /**
@@ -39,5 +43,24 @@ class ArticleController extends AbstractController
             "assignedArticles" => $assignedArticles,
             "otherArticles" => $otherArticles
         ]);
+    }
+
+    /**
+     * @Route("/list/{id}", name="article_view")
+     */
+    public function view($id)
+    {
+        $article = $this->article
+            ->find($id);
+
+        if (!$article) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$id
+            );
+        }
+        return $this->render('article/article.view.html.twig', [
+            'article' => $article
+        ]);
+
     }
 }
