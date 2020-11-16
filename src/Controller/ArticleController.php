@@ -4,42 +4,56 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\State;
+use App\Enum\StateEnums;
 use App\Repository\ArticleRepository;
+use App\Repository\StateRepository;
 use App\Service\ArticleService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\ArticleType;
 
 /**
  * Class ArticleController
  * @package App\Controller
- * @Route("article", name="app_articles")
+ * @Route("article")
  */
 class ArticleController extends AbstractController
 {
-    // TODO: Use annotation to specify types, e.g. @var ArticleRepository $article
+    /**@var ArticleRepository */
     private $articleRepository;
 
+    /** @var ArticleService */
     private $articleService;
 
-    private $article;
+    /** @var StateRepository */
+    private $stateRepository;
 
-    public function __construct(ArticleRepository $articleRepository, ArticleService $articleService)
-    {
+    /** @var EntityManagerInterface */
+    private $entityManager;
+
+    public function __construct(
+        ArticleRepository $articleRepository,
+        ArticleService $articleService,
+        StateRepository $stateRepository,
+        EntityManagerInterface $entityManager
+    ) {
         $this->articleRepository = $articleRepository;
         $this->articleService = $articleService;
-        // TODO: Why is article = $articleRepository ? Doesn't make sense, keep names the same
-        $this->article = $articleRepository;
+        $this->stateRepository = $stateRepository;
+        $this->entityManager = $entityManager;
     }
 
     /**
-     * @Route("/list", name="app_articles_list")
+     * @Route("/list", name="articles_list")
      * @return Response
      */
     public function list(): Response
     {
         $assignedArticles = $this->articleService->getAssignedArticles($this->getUser());
-        $otherArticles = $this->articleService->getArticlesExcluding($assignedArticles);
+        $otherArticles = $this->articleService->getNotAssignedArticles($this->getUser());
 
         return $this->render("article/article.list.html.twig", [
             "assignedArticles" => $assignedArticles,
@@ -47,26 +61,48 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    // TODO: You can even specify what this have to be and Symfony will fill it up if it's ID of entity, for example:
-    // TODO: public function view(Article $article) and then you can work with as object already - do not need to search in database
     /**
-     * @Route("/list/{id}", name="article_view")
+     * @Route("/view/{article}", name="article_view")
+     * @param Article $article
+     * @return Response
      */
-    public function view($id)
+    public function view(Article $article)
     {
-        // TODO: Use what I wrote above and you can delete this
-        $article = $this->article
-            ->find($id);
-
-        // TODO: Use what I wrote above and you can delete this
-        if (!$article) {
-            throw $this->createNotFoundException(
-                'No product found for id '.$id
-            );
-        }
         return $this->render('article/article.view.html.twig', [
             'article' => $article
         ]);
 
+    }
+
+    /**
+     * @Route("/list/{article}/edit", name="article_edit")
+     * @param Article $article
+     * @return Response
+     */
+    public function edit(Article $article)
+    {
+        $form = $this->createForm(ArticleType::class);
+        return $this->render('article/article.edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+
+    }
+
+    /**
+     * @Route("/list/{article}/submit", name="article_submit")
+     * @param Article $article
+     * @return Response
+     */
+    public function submit(Article $article)
+    {
+        $submittedState = $this->stateRepository->findOneBy(["name" => StateEnums::SUBMITTED]);
+        $article
+            ->setState($submittedState)
+            ->setAssigne(null);
+
+        $this->entityManager->flush();
+        return $this->render('article/article.submit.html.twig', [
+            'article' => $article
+        ]);
     }
 }

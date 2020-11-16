@@ -4,6 +4,7 @@
 namespace App\Service;
 
 
+use App\Entity\User;
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -31,11 +32,11 @@ class ArticleService
     }
 
     /**
-     * @param Article[] $articles
+     * @param User $user
      * @return array
      */
-    public function getArticlesExcluding(array $articles): array
+    public function getNotAssignedArticles(User $user): array
     {
-        return $this->articleRepository->findExclArticles($articles);
+        return $this->articleRepository->findNotAssignedArticles($user);
     }
 }
