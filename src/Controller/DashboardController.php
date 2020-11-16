@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractController
 {
+    // TODO: Another code-style tip: Write annotation comments on 1 line, e.g. /** @var ArticleRepository */ it looks better :)
     /**
      * @var ArticleRepository
      */
@@ -26,6 +27,7 @@ class DashboardController extends AbstractController
      */
     public function index(): Response
     {
+        // TODO: To keep MVC architecture, you should move this usage of repository to service :)
         $articles = $this->articleRepository->findAll();
         return $this->render("dashboard.html.twig" , [
             "articles" => $articles

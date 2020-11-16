@@ -11,6 +11,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+    // TODO: Code-style tip: Keep all parameters in comments, e.g. @param AuthneticationUtils $authenticationUtils
     /**
      * @Route("/login", name="app_login")
      */

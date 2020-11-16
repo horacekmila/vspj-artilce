@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class ArticleController extends AbstractController
 {
+    // TODO: Use annotation to specify types, e.g. @var ArticleRepository $article
     private $articleRepository;
 
     private $articleService;
@@ -27,6 +28,7 @@ class ArticleController extends AbstractController
     {
         $this->articleRepository = $articleRepository;
         $this->articleService = $articleService;
+        // TODO: Why is article = $articleRepository ? Doesn't make sense, keep names the same
         $this->article = $articleRepository;
     }
 
@@ -45,14 +47,18 @@ class ArticleController extends AbstractController
         ]);
     }
 
+    // TODO: You can even specify what this have to be and Symfony will fill it up if it's ID of entity, for example:
+    // TODO: public function view(Article $article) and then you can work with as object already - do not need to search in database
     /**
      * @Route("/list/{id}", name="article_view")
      */
     public function view($id)
     {
+        // TODO: Use what I wrote above and you can delete this
         $article = $this->article
             ->find($id);
 
+        // TODO: Use what I wrote above and you can delete this
         if (!$article) {
             throw $this->createNotFoundException(
                 'No product found for id '.$id
