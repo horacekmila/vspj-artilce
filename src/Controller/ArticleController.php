@@ -13,25 +13,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 /**
  * Class ArticleController
  * @package App\Controller
- * @Route("article", name="app_articles")
+ * @Route("article", name="articles")
  */
 class ArticleController extends AbstractController
 {
+    /**@var ArticleRepository */
     private $articleRepository;
 
+    /** @var ArticleService */
     private $articleService;
-
-    private $article;
 
     public function __construct(ArticleRepository $articleRepository, ArticleService $articleService)
     {
         $this->articleRepository = $articleRepository;
         $this->articleService = $articleService;
-        $this->article = $articleRepository;
     }
 
     /**
-     * @Route("/list", name="app_articles_list")
+     * @Route("/list", name="articles_list")
      * @return Response
      */
     public function list(): Response
@@ -46,21 +45,12 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/list/{id}", name="article_view")
+     * @Route("/view/{article}", name="article_view")
      */
-    public function view($id)
+    public function view(Article $article)
     {
-        $article = $this->article
-            ->find($id);
-
-        if (!$article) {
-            throw $this->createNotFoundException(
-                'No product found for id '.$id
-            );
-        }
         return $this->render('article/article.view.html.twig', [
             'article' => $article
         ]);
-
     }
 }

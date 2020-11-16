@@ -27,7 +27,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="043a050f-e773-427c-a129-a94aa5b5ed83" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/article/article.view.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/ArticleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ArticleController.php" afterDir="false" />
     </list>
@@ -36,7 +35,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" doNotAsk="true">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
@@ -186,7 +185,9 @@
       <workItem from="1605275689885" duration="15085000" />
       <workItem from="1605364071646" duration="3218000" />
       <workItem from="1605442981166" duration="4470000" />
-      <workItem from="1605453917811" duration="5334000" />
+      <workItem from="1605453917811" duration="6838000" />
+      <workItem from="1605545906786" duration="24000" />
+      <workItem from="1605545939209" duration="816000" />
     </task>
     <servers />
   </component>
@@ -241,11 +242,12 @@
       <screen x="1920" y="41" width="1920" height="1080" />
     </state>
     <state x="2533" y="212" width="683" height="771" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/1920.41.1920.1080/3840.0.1680.1050/0.68.1920.1053@1920.41.1920.1080" timestamp="1605366270575" />
-    <state x="2648" y="473" width="464" height="170" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605456487058">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state x="773" y="488" width="437" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605546742791">
+      <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="2648" y="514" width="464" height="167" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.41.1920.1080/3840.0.1680.1050/0.68.1920.1053@1920.41.1920.1080" timestamp="1605364807495" />
     <state x="2648" y="473" width="464" height="170" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1605456487058" />
+    <state x="773" y="488" width="437" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1605546742791" />
     <state x="2525" y="333" width="709" height="522" key="find.popup" timestamp="1605367044624">
       <screen x="1920" y="41" width="1920" height="1080" />
     </state>
