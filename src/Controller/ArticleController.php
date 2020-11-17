@@ -10,6 +10,7 @@ use App\Repository\ArticleRepository;
 use App\Repository\StateRepository;
 use App\Service\ArticleService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +19,7 @@ use App\Form\ArticleType;
 /**
  * Class ArticleController
  * @package App\Controller
- * @Route("article", name="articles")
+ * @Route("article")
  * @Route("article")
  */
 class ArticleController extends AbstractController
@@ -82,9 +83,24 @@ class ArticleController extends AbstractController
      * @param Article $article
      * @return Response
      */
-    public function edit(Article $article)
+    public function edit(Article $article, Request $request)
     {
         $form = $this->createForm(ArticleType::class);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $article = $form->getData();
+            $this->entityManager->persist($article);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Article Edited!');
+
+            return $this->redirectToRoute('articles_list');
+        }
+
+
+        $this->entityManager->flush();
         return $this->render('article/article.edit.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -104,8 +120,6 @@ class ArticleController extends AbstractController
             ->setAssigne(null);
 
         $this->entityManager->flush();
-        return $this->render('article/article.submit.html.twig', [
-            'article' => $article
-        ]);
+        return $this->redirectToRoute('articles_list');
     }
 }
