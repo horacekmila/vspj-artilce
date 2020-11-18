@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\State;
+use App\Enum\RoleEnums;
 use App\Enum\StateEnums;
 use App\Repository\ArticleRepository;
 use App\Repository\StateRepository;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Form\ArticleType;
+use Symfony\Component\Security\Core\User\User;
 
 /**
  * Class ArticleController
@@ -81,11 +83,12 @@ class ArticleController extends AbstractController
     /**
      * @Route("/list/{article}/edit", name="article_edit")
      * @param Article $article
+     * @param Request $request
      * @return Response
      */
     public function edit(Article $article, Request $request)
     {
-        $form = $this->createForm(ArticleType::class);
+        $form = $this->createForm(ArticleType::class, $article);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -99,8 +102,6 @@ class ArticleController extends AbstractController
             return $this->redirectToRoute('articles_list');
         }
 
-
-        $this->entityManager->flush();
         return $this->render('article/article.edit.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -121,5 +122,49 @@ class ArticleController extends AbstractController
 
         $this->entityManager->flush();
         return $this->redirectToRoute('articles_list');
+    }
+
+    /**
+     * @Route("/new", name="article_new")
+     * @param Request $request
+     * @return Response
+     */
+    public function new(Request $request, StateRepository $states)
+    {
+        $states = $this->stateRepository->findAll();
+        $stateArray = [];
+        foreach($states as $state) {
+            $stateArray[$state->getName()] = $state;
+        }
+        $users = $this->getUser();
+
+        $newArticle = (new Article())
+            ->setTitle('')
+            ->setContent('')
+            ->setAssigne($users)
+            ->setState($stateArray[StateEnums::WORK_IN_PROGRESS])
+            ->setIsActive(true)
+            ->setEditable(true)
+            ->setVersion(1)
+            ->setCreatedBy($users);
+
+        $form = $this->createForm(ArticleType::class, $newArticle);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $newArticle = $form->getData();
+            $this->entityManager->persist($newArticle);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Article Edited!');
+
+            return $this->redirectToRoute('articles_list');
+        }
+
+        return $this->render('article/article.edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+
     }
 }
