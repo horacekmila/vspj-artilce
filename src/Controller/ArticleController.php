@@ -4,8 +4,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
-use App\Entity\State;
-use App\Enum\RoleEnums;
+use App\Entity\User;
 use App\Enum\StateEnums;
 use App\Repository\ArticleRepository;
 use App\Repository\StateRepository;
@@ -16,7 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Form\ArticleType;
-use Symfony\Component\Security\Core\User\User;
 
 /**
  * Class ArticleController
@@ -26,20 +24,13 @@ use Symfony\Component\Security\Core\User\User;
  */
 class ArticleController extends AbstractController
 {
+    private StateRepository $stateRepository;
 
-    /** @var StateRepository */
-    private $stateRepository;
+    private EntityManagerInterface $entityManager;
 
-    /** @var EntityManagerInterface */
-    private $entityManager;
-    /**
-     * @var ArticleRepository
-     */
-    private $articleRepository;
-    /**
-     * @var ArticleService
-     */
-    private $articleService;
+    private ArticleRepository $articleRepository;
+
+    private ArticleService $articleService;
 
     public function __construct(
         ArticleRepository $articleRepository,
@@ -59,8 +50,8 @@ class ArticleController extends AbstractController
      */
     public function list(): Response
     {
-        $assignedArticles = $this->articleService->getAssignedArticles($this->getUser());
-        $otherArticles = $this->articleService->getNotAssignedArticles($this->getUser());
+        $assignedArticles = $this->articleService->getArticlesByRole($this->getUser());
+        $otherArticles = $this->articleService->getArticlesExclude($assignedArticles);
 
         return $this->render("article/article.list.html.twig", [
             "assignedArticles" => $assignedArticles,
@@ -127,6 +118,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/new", name="article_new")
      * @param Request $request
+     * @param StateRepository $states
      * @return Response
      */
     public function new(Request $request, StateRepository $states)
@@ -136,17 +128,18 @@ class ArticleController extends AbstractController
         foreach($states as $state) {
             $stateArray[$state->getName()] = $state;
         }
-        $users = $this->getUser();
+        /** @var User $user */
+        $user = $this->getUser();
 
         $newArticle = (new Article())
             ->setTitle('')
             ->setContent('')
-            ->setAssigne($users)
+            ->setAssigne($user)
             ->setState($stateArray[StateEnums::WORK_IN_PROGRESS])
             ->setIsActive(true)
             ->setEditable(true)
             ->setVersion(1)
-            ->setCreatedBy($users);
+            ->setCreatedBy($user);
 
         $form = $this->createForm(ArticleType::class, $newArticle);
 
