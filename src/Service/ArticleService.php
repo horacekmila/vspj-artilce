@@ -27,7 +27,6 @@ class ArticleService
      */
     public function getAssignedArticles(UserInterface $user): ?array
     {
-        //TODO: again typo, double e => assignee
         return $this->articleRepository->findBy(["assigne" => $user]);
     }
 
@@ -39,4 +38,5 @@ class ArticleService
     {
         return $this->articleRepository->findNotAssignedArticles($user);
     }
+
 }
