@@ -121,6 +121,38 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @Route("/list/{article}/return", name="article_return")
+     * @param Article $article
+     * @return Response
+     */
+    public function returnToWriter(Article $article)
+    {
+        $submittedState = $this->stateRepository->findOneBy(["name" => StateEnums::INAPPROPRIAT_THEME]);
+        $article
+            ->setState($submittedState)
+            ->setAssigne($this->userRepository->find(2));
+
+        $this->entityManager->flush();
+        return $this->redirectToRoute('articles_list');
+    }
+
+    /**
+     * @Route("/list/{article}/public", name="article_public")
+     * @param Article $article
+     * @return Response
+     */
+    public function public(Article $article)
+    {
+        $submittedState = $this->stateRepository->findOneBy(["name" => StateEnums::SENT]);
+        $article
+            ->setState($submittedState)
+            ->setIsActive(true);
+
+        $this->entityManager->flush();
+        return $this->redirectToRoute('articles_list');
+    }
+
+    /**
      * @Route("/list/{article}/submit/review", name="article_submit_to_review")
      * @param Article $article
      * @return Response
@@ -132,6 +164,17 @@ class ArticleController extends AbstractController
             ->setState($submittedState)
             ->setAssigne($this->userRepository->find(6));
 
+        $this->entityManager->flush();
+        return $this->redirectToRoute('articles_list');
+    }
+    /**
+     * @Route("/list/{article}/delete", name="article_delete")
+     * @param Article $article
+     * @return Response
+     */
+    public function delete(Article $article)
+    {
+        $this->entityManager->remove($article);
         $this->entityManager->flush();
         return $this->redirectToRoute('articles_list');
     }
@@ -157,7 +200,7 @@ class ArticleController extends AbstractController
             ->setContent('')
             ->setAssigne($user)
             ->setState($stateArray[StateEnums::WORK_IN_PROGRESS])
-            ->setIsActive(true)
+            ->setIsActive(false)
             ->setEditable(true)
             ->setVersion(1)
             ->setCreatedBy($user);

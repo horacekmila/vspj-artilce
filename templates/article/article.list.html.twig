@@ -4,22 +4,46 @@
     <div class="container-fluid">
         <div class="row">
             <h1 class="col-3">Nový článek</h1>
-            <a class="col-1" href={{ path("article_new") }}><button type="button" class="btn btn-info">Nový článek</button></a>
+            {% if is_granted('ROLE_WRITER') %}<a class="col-1" href={{ path("article_new") }}><button type="button" class="btn btn-info">Nový článek</button></a>{% endif %}
         </div>
         <h1>Moje články</h1>
-    {% for assignedArticle in assignedArticles %}
-    <div class="col-12 space">
-        <div class="row">
-             <div class="col-1">{{ assignedArticle.Title }}:</div>
-            <div class="col-1"> <a href={{ path("article_view", {"article": assignedArticle.id}) }}><button class="btn btn-success col-12" type="button">Zobrazit</button></a></div>
-            <div class="col-1"><a href={{ path("article_edit", {"article": assignedArticle.id}) }}><button class="btn btn-warning col-12" type="button" >Upravit</button></a></div>
-            <div class="col-2"><a href={{ path("article_submit", {"article": assignedArticle.id}) }}><button class="btn btn-danger col-12" type="button">Odeslat redakci</button></a></div>
-        </div>
-    </div>
-    {% endfor %}
-    <h1>Ostatní články</h1>
-    {% for otherArticles in otherArticles %}
-        <a>{{ otherArticles.Title }}</a><br>
-    {% endfor %}
+    {% if is_granted('ROLE_ADMIN') %}
+     {% else%}
+         {% for assignedArticle in assignedArticles %}
+             <div class="col-12 space">
+                 <div class="row">
+                     <div class="col-1">{{ assignedArticle.Title }}:</div>
+                     <div class="col-1"> <a href={{ path("article_view", {"article": assignedArticle.id}) }}><button class="btn btn-success col-12" type="button">Zobrazit</button></a></div>
+                     <div class="col-1"><a href={{ path("article_edit", {"article": assignedArticle.id}) }}><button class="btn btn-warning col-12" type="button" >Upravit</button></a></div>
+                     {% if is_granted('ROLE_REVIEWER') or is_granted('ROLE_WRITER') %} <div class="col-2"><a href={{ path("article_submit", {"article": assignedArticle.id}) }}><button class="btn btn-danger col-12" type="button">Odeslat redakci</button></a></div>{% endif %}
+                     {% if is_granted('ROLE_EDITOR') %}<div class="col-2"><a href={{ path("article_submit_to_review", {"article": assignedArticle.id}) }}><button class="btn btn-danger col-12" type="button">Odeslat na recenzi</button></a></div>{% endif %}
+                     {% if is_granted('ROLE_EDITOR') %}<div class="col-2"><a href={{ path("article_public", {"article": assignedArticle.id}) }}><button class="btn btn-danger col-12" type="button">Publikovat</button></a></div>{% endif %}
+                     {% if is_granted('ROLE_EDITOR') %}<div class="col-2"><a href={{ path("article_return", {"article": assignedArticle.id}) }}><button class="btn btn-dark col-12" type="button">Vrátit autorovy</button></a></div>{% endif %}
+
+
+                 </div>
+             </div>
+         {% endfor %}
+         <h1>Ostatní články</h1>
+         {% for otherArticles in otherArticles %}
+             <a>{{ otherArticles.Title }}</a><br>
+         {% endfor %}
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% for otherArticles in otherArticles %}
+           <div class="col-12">
+            <div class="row">
+                <div class="col-1">{{ otherArticles.Title }}:</div>
+                <div class="col-1"> <a href={{ path("article_view", {"article": otherArticles.id}) }}><button class="btn btn-success col-12" type="button">Zobrazit</button></a></div>
+                <div class="col-1"><a href={{ path("article_edit", {"article": otherArticles.id}) }}><button class="btn btn-warning col-12" type="button" >Upravit</button></a></div>
+                <div class="col-2"><a href={{ path("article_submit", {"article": otherArticles.id}) }}><button class="btn btn-danger col-12" type="button">Odeslat redakci</button></a></div>
+                <div class="col-2"><a href={{ path("article_submit_to_review", {"article": otherArticles.id}) }}><button class="btn btn-danger col-12" type="button">Odeslat na recenzi</button></a></div>
+                <div class="col-2"><a href={{ path("article_delete", {"article": otherArticles.id}) }}><button class="btn btn-danger col-12" type="button">Smazat</button></a></div>
+               <div class="col-2"><a href={{ path("article_public", {"article": otherArticles.id}) }}><button class="btn btn-info col-12" type="button">Publikovat</button></a></div>
+            </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
     </div>
 {% endblock %}
