@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Enum\StateEnums;
 use App\Repository\ArticleRepository;
 use App\Repository\StateRepository;
+use App\Repository\UserRepository;
 use App\Service\ArticleService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,16 +33,20 @@ class ArticleController extends AbstractController
 
     private ArticleService $articleService;
 
+    private UserRepository $userRepository;
+
     public function __construct(
         ArticleRepository $articleRepository,
         ArticleService $articleService,
         StateRepository $stateRepository,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        UserRepository $userRepository
     ) {
         $this->articleRepository = $articleRepository;
         $this->articleService = $articleService;
         $this->stateRepository = $stateRepository;
         $this->entityManager = $entityManager;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -110,6 +115,22 @@ class ArticleController extends AbstractController
         $article
             ->setState($submittedState)
             ->setAssigne(null);
+
+        $this->entityManager->flush();
+        return $this->redirectToRoute('articles_list');
+    }
+
+    /**
+     * @Route("/list/{article}/submit/review", name="article_submit_to_review")
+     * @param Article $article
+     * @return Response
+     */
+    public function review(Article $article)
+    {
+        $submittedState = $this->stateRepository->findOneBy(["name" => StateEnums::IN_REVIEW]);
+        $article
+            ->setState($submittedState)
+            ->setAssigne($this->userRepository->find(6));
 
         $this->entityManager->flush();
         return $this->redirectToRoute('articles_list');

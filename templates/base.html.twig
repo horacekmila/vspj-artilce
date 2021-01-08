@@ -20,17 +20,30 @@
             <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href={{ path("app_dashboard") }}>Domů</a>
+                        <a class="nav-link" href={{ path("app_main") }}>Domů</a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href={{ path("app_dashboard") }}>Archív</a>
+                    </li>
+                    {% if is_granted('IS_AUTHENTICATED_ANONYMOUSLY') == true %}
+                         {% if is_granted('ROLE_USER') == true %}
+
+                         {% else%}
+                            <li class="nav-item active">
+                            <a class="nav-link" href={{ path("app_login") }}>Přihlásit se</a>
+                            </li>
+                         {% endif %}
+                    {% endif %}
                     <li class="nav-item active">
                         {% if is_granted('ROLE_WRITER') %}<a class="nav-link" href={{ path("articles_list") }}>Články</a>{% endif %}
                         {% if is_granted('ROLE_EDITOR') %}<a class="nav-link" href={{ path("articles_list") }}>Články</a>{% endif %}
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href={{ path("articles_list") }}>Časopis</a>
+                        {% if is_granted('ROLE_USER') %} <a class="nav-link" href={{ path("articles_list") }}>Časopis</a>{% endif %}
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href={{ path("app_logout") }}>Odhlásit</a>
+                        {% if is_granted('ROLE_USER') %} <a class="nav-link" href={{ path("app_logout") }}>Odhlásit</a>{% endif %}
+                    </li>
                     </li>
                 </ul>
             </div>
